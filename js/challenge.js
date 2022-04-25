@@ -29,14 +29,23 @@ document.addEventListener("DOMContentLoaded",()=>{
   }
 //implement like functionality
   let like = document.querySelector("#heart")
+  let baseValues = []
+  let likesUl = document.querySelector(".likes")
   like.addEventListener("click",()=>{
-    let baseValues = []
     let currentValue = Number(counter.innerText)
-    baseValues.push(currentValue)
-    let compareValue = baseValues.at(-2) - currentValue
-    
-
+    let li = document.createElement("li")
+    li.setAttribute("data-index",`${currentValue}`)
+    let result = document.querySelector(`li[data-index = '${currentValue}']`)
+    if(!result){
+      li.innerHTML = `${currentValue} has been liked <span id='${currentValue}'>1 time</span>`
+      likesUl.appendChild(li)
+    }else{
+      let val = document.getElementById(`${currentValue}`)
+      console.log(val.innerHTML)
+      val.innerHTML = `${parseInt(val.innerHTML) + 1} times`
+    }
   })
+
 //Implement pause functionality
   let pause = document.querySelector("#pause")
   pause.addEventListener("click", pauseAndResume)
